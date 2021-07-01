@@ -8,22 +8,148 @@
   <script defer src="face-api.min.js"></script>
   <script defer src="script.js"></script>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+   body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
 
-    canvas {
-      position: absolute;
-    }
+#videoContainer,
+#video {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+#video {
+  transform: scaleX(-1);
+  filter: flipH;
+}
+
+.buttonsForcapture {
+  position: absolute;
+  bottom: 6em;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#Register-record, .startUploadButton {
+  padding: 0.5rem 3rem !important;
+  background-color: #3e55dc !important;
+  border: none !important;
+  color: #ffffff;
+  outline: none !important;
+  background: #3e55dc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.cancelButton {
+  padding: 0.4rem 2.5rem !important;
+  color: #383838;
+  outline: none !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px;
+  border: none !important;
+  font-size: 16px;
+}
+
+.infoForCapture span {
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 16px;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0.5em;
+  position: absolute;
+  bottom: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.infoForCapture {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+#TimerForCapture{
+    width: 100%;
+    display: none;
+    position: absolute;
+    font-size: 30px;
+    color: white;
+    bottom: 5em;
+    justify-content: center;
+}
+
+
+
+#TimerForCapture span{
+    
+    border-radius: 8px;
+    padding:0.5em;
+    background: rgba(0, 0, 0, 0.65);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+
+#start-record svg{
+    font-size: 12px;
+}
+
+#Register-record{
+    display: none;
+}
+
+#faceShape{
+    position: absolute;
+    width: 100%;
+    display: flex;
+    top: 7em;
+    justify-content: center;
+}
+#faceShape svg{
+    width: 65%;
+   
+}
+
   </style>
 </head>
 <body>
-  <video id="video" width="720" height="560" autoplay muted></video>
+   <div id="videoContainer">
+    <video id="video" autoplay></video>
+    <canvas id="overlay" style="position: absolute;top: 0px;width: 100vw;height: 100vh;" ></canvas>
+    </div>
+    <div id="TimerForCapture">
+    <span></span>
+    </div>
+    <div class="buttonsForcapture">
+    <button  type="button" id="stop-record" class="cancelButton" onclick="cancelRecording()" style="display: none;">Cancel</button>
+    <button type="button" id="start-record" class="startUploadButton d-flex" onclick="startRecording()">Start</button>
+    <button type="button" id="Register-record" class="RegisterUploadButton d-flex" onclick="RegisterRecording()">Upload and register</button>
+    
+    </div>
+    <div class="infoForCapture">
+    <span>10 sec face registration video will captured, place your face inside the box</span>
+    </div>
+    <div id="faceShape">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="224.000000pt" height="312.000000pt" viewBox="0 0 224.000000 312.000000" preserveAspectRatio="xMidYMid meet">
+    
+        <g transform="translate(0.000000,312.000000) scale(0.100000,-0.100000)" fill="#3e55dc" stroke="none">
+        <path d="M976 3110 c-438 -50 -808 -334 -936 -716 -39 -119 -43 -170 -15 -190 19 -14 61 -12 77 5 4 4 16 41 27 82 83 323 353 581 706 676 91 24 117 27 280 27 198 0 256 -10 408 -74 147 -61 319 -197 426 -335 60 -78 133 -222 156 -309 21 -76 41 -95 88 -77 42 16 43 48 5 159 -127 370 -457 655 -853 737 -93 19 -269 26 -369 15z"/>
+        <path d="M433 550 c-31 -13 -36 -42 -18 -111 49 -194 214 -340 449 -399 342 -86 681 -15 881 184 127 128 191 307 117 330 -38 12 -70 -10 -82 -56 -44 -166 -232 -320 -442 -362 -43 -9 -127 -16 -190 -16 -339 1 -580 142 -629 370 -13 63 -37 80 -86 60z"/>
+        </g>
+        </svg>
+    </div>
 </body>
 </html>
